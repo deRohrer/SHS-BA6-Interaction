@@ -147,7 +147,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      lil guy drawing_0: 2319914597828092844
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
