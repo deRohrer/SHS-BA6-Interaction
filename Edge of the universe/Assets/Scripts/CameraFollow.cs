@@ -8,6 +8,6 @@ public class CameraFollow : MonoBehaviour
     void LateUpdate()
     {
         // Set the camera position based on the player's position + the offset
-        transform.position = player.position + offset;
+        transform.position = new Vector3(player.position.x + offset.x, transform.position.y+offset.y, transform.position.z+offset.z);
     }
 }
