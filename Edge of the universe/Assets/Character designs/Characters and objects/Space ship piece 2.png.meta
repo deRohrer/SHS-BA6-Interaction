@@ -1,10 +1,19 @@
 fileFormatVersion: 2
-guid: ce7b5e6625929914baa663b22d950423
+guid: eb4e1a27b06ec6746a398e51d37ca021
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 8427572618518134088
-    second: Milly-01_0
+      213: 4395114228985463559
+    second: Space ship piece 2_0
+  - first:
+      213: -6284247835277114949
+    second: Space ship piece 2_1
+  - first:
+      213: -1813897433773464010
+    second: Space ship piece 2_2
+  - first:
+      213: 3508447381305116470
+    second: Space ship piece 2_3
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -96,30 +105,17 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
-  - serializedVersion: 4
-    buildTarget: WebGL
-    maxTextureSize: 2048
-    resizeAlgorithm: 0
-    textureFormat: -1
-    textureCompression: 1
-    compressionQuality: 50
-    crunchedCompression: 0
-    allowsAlphaSplitting: 0
-    overridden: 0
-    ignorePlatformSupport: 0
-    androidETC2FallbackOverride: 0
-    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Milly-01_0
+      name: Space ship piece 2_0
       rect:
         serializedVersion: 2
-        x: 70
-        y: 53
-        width: 415
-        height: 604
+        x: 32
+        y: 141
+        width: 9
+        height: 24
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -128,8 +124,74 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 84df49535a0c4f470800000000000000
-      internalID: 8427572618518134088
+      spriteID: 70381fdda159efc30800000000000000
+      internalID: 4395114228985463559
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Space ship piece 2_1
+      rect:
+        serializedVersion: 2
+        x: 34
+        y: 20
+        width: 156
+        height: 172
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bb14ac1a3edd9c8a0800000000000000
+      internalID: -6284247835277114949
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Space ship piece 2_2
+      rect:
+        serializedVersion: 2
+        x: 160
+        y: 147
+        width: 27
+        height: 46
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 636a0f8f4edb3d6e0800000000000000
+      internalID: -1813897433773464010
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Space ship piece 2_3
+      rect:
+        serializedVersion: 2
+        x: 14
+        y: 133
+        width: 22
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 63747d30e4280b030800000000000000
+      internalID: 3508447381305116470
       vertices: []
       indices: 
       edges: []
@@ -147,8 +209,7 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable:
-      Milly-01_0: 8427572618518134088
+    nameFileIdTable: {}
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
