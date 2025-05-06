@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 8d3b9a9bee563544eb678f79a7fa4e18
+guid: 09ea5b9501cce004394a82fd3b2cd356
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 1808275416299402342
-    second: Milly_EMPTY BODY IDLE_0
+      213: -326585414477426331
+    second: Starry sky_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -113,13 +113,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Milly_EMPTY BODY IDLE_0
+      name: Starry sky_0
       rect:
         serializedVersion: 2
-        x: 55
-        y: 45
-        width: 415
-        height: 566
+        x: 0
+        y: 0
+        width: 1024
+        height: 512
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -128,8 +128,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 664f89419e8481910800000000000000
-      internalID: 1808275416299402342
+      spriteID: 561df3dbb4cb77bf0800000000000000
+      internalID: -326585414477426331
       vertices: []
       indices: 
       edges: []
@@ -147,8 +147,7 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable:
-      Milly_EMPTY BODY IDLE_0: 1808275416299402342
+    nameFileIdTable: {}
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
