@@ -7,15 +7,15 @@ public class Movement : MonoBehaviour
     public KeyCode movebwdKey = KeyCode.LeftArrow;
     public KeyCode moveuwdKey = KeyCode.UpArrow;
 
-    private Rigidbody rb;
+    private Rigidbody2D rb;
 
     void Start()
     {
         // Ensure the GameObject has a Rigidbody component
-        rb = GetComponent<Rigidbody>();
+        rb = GetComponent<Rigidbody2D>();
         if (rb == null)
         {
-            rb = gameObject.AddComponent<Rigidbody>();
+            rb = gameObject.AddComponent<Rigidbody2D>();
         }
 
         // Optional: Freeze rotation to prevent tipping over
