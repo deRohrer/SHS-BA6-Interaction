@@ -8,6 +8,9 @@ public class Movement : MonoBehaviour
     public KeyCode moveuwdKey = KeyCode.UpArrow;
 
     private Rigidbody2D rb;
+    public Animator millyAnimator;
+
+    private string heldObject = "";
 
     void Start()
     {
@@ -28,16 +31,39 @@ public class Movement : MonoBehaviour
         if (Input.GetKey(movefwdKey))
         {
             transform.Translate(Vector3.right * speed * Time.deltaTime);
-        }
 
-        if (Input.GetKey(movebwdKey))
+            Vector3 scale = transform.localScale;
+            scale.x = Mathf.Abs(scale.x);
+            transform.localScale = scale;
+
+            if (heldObject == "")
+            {
+                millyAnimator.Play("WALK Milly");
+            }
+            else
+            {
+                millyAnimator.Play("walk holding");
+            }
+        }
+        else if (Input.GetKey(movebwdKey))
         {
             transform.Translate(Vector3.left * speed * Time.deltaTime);
+
+            Vector3 scale = transform.localScale;
+            scale.x = -Mathf.Abs(scale.x);
+            transform.localScale = scale;
+
+            millyAnimator.Play("WALK Milly");
+            
+        }
+        else
+        {
+            millyAnimator.Play("IDLE Milly bob");
         }
 
         if (Input.GetKey(moveuwdKey))
         {
-            transform.Translate(Vector3.up * 2 * speed * Time.deltaTime);
+            // transform.Translate(Vector3.up * 2 * speed * Time.deltaTime);
         }
     }
 }
