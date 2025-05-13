@@ -21,7 +21,7 @@ public class MenuPlanet : MonoBehaviour
         GameObject menu = GameObject.FindWithTag("Menu");
         if (menu != null)
         {
-            menu.GetComponent<MenuFader>().FadeOutMenu();
+            menu.GetComponent<Menu>().HideMenuWithFade();
         }
 
         // Move player and camera
@@ -43,7 +43,7 @@ public class MenuPlanet : MonoBehaviour
 
             GameManager.Instance.SetCurrentPlanet(destinationPlanet);
 
-            GameManager.Instance.HideChildObjectsByParent("Menu");
+            //GameManager.Instance.HideChildObjectsByParent("Menu");
 
         }
     }
