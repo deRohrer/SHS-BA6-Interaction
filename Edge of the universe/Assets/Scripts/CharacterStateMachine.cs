@@ -12,6 +12,7 @@ public interface ICharacterState
 public class IdleState : ICharacterState
 {
     private readonly CharacterStateMachine character;
+    public Animator animator;
 
     public IdleState(CharacterStateMachine character)
     {
@@ -21,10 +22,23 @@ public class IdleState : ICharacterState
     public void OnEnter()
     {
         Debug.Log("Entered Idle State");
+        
+
     }
 
     public void Update()
     {
+        bool isHolding = character.heldObject != null;
+
+        if (isHolding)
+        {
+            character.animator.Play("Idle holding");
+        }
+        else
+        {
+            character.animator.Play("IDLE Milly bob");
+        }
+        
         // Start walking if horizontal input is pressed
         if (Input.GetAxisRaw("Horizontal") != 0)
         {
@@ -63,6 +77,7 @@ public class WalkingState : ICharacterState
     public void OnEnter()
     {
         Debug.Log("Entered Walking State");
+
     }
 
     public void Update()
@@ -72,11 +87,25 @@ public class WalkingState : ICharacterState
         velocity.x = moveHorizontal * character.moveSpeed;
         character.rb.linearVelocity = velocity;
 
-        // Flip the character's scale to face the movement direction
-        if (moveHorizontal != 0)
+        bool isHolding = character.heldObject != null;
+   
+
+        //change animation based on if theyre holding
+        if (isHolding)
+        {
+           character.animator.Play("walk holding");
+
+        }
+        else
+        {
+            character.animator.Play("WALK Milly");
+        }
+            // Flip the character's scale to face the movement direction
+            if (moveHorizontal != 0)
         {
             character.transform.localScale = new Vector3(Mathf.Sign(moveHorizontal) * Mathf.Abs(character.transform.localScale.x), character.transform.localScale.y, character.transform.localScale.z);
         }
+
 
         // Go idle if no movement
         if (moveHorizontal == 0)
@@ -120,11 +149,16 @@ public class HoldingState : ICharacterState
 
     public void Update()
     {
+        character.SetState(new IdleState(character));
         // Drop object with spacebar
         if (Input.GetKeyDown(KeyCode.Space))
         {
             character.PutDownObject();
             character.SetState(new IdleState(character));
+        }
+        if (Input.GetAxisRaw("Horizontal") != 0)
+        {
+            character.SetState(new WalkingState(character));
         }
     }
 
@@ -188,6 +222,7 @@ public class JumpingState : ICharacterState
 
     public void Update()
     {
+        Debug.Log("Grounded: " + character.IsGrounded());
         // Return to walking when grounded
         if (character.IsGrounded())
         {
@@ -237,11 +272,12 @@ public class PuttingDownState : ICharacterState
 public class CharacterStateMachine : MonoBehaviour
 {
     public Rigidbody2D rb; // 2D Rigidbody
+    public Animator animator;//milly animations
     public float moveSpeed = 5f; // Horizontal move speed
     public float jumpForce = 7f; // Jump force
     public Transform holdPoint; // Where to hold objects
     public GameObject heldObject; // Currently held object
-    public float objectDetectionRadius = 1f; // Pickup radius
+    public float objectDetectionRadius = 3f; // Pickup radius
     public float stateTransitionDelay = 0.1f; // Delay for state transitions
     public LayerMask pickupLayer; // Layer for pickup objects
     private ICharacterState currentState;
@@ -286,6 +322,8 @@ public class CharacterStateMachine : MonoBehaviour
 
     public void Jump()
     {
+        Debug.Log("Jump called");
+
         // Only jump if grounded
         if (IsGrounded())
         {
@@ -297,50 +335,89 @@ public class CharacterStateMachine : MonoBehaviour
     public bool IsGrounded()
     {
         // Raycast down to check for ground
-        RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.down, GetComponent<Collider2D>().bounds.extents.y + 0.1f, ~pickupLayer);
+        Vector2 position = transform.position;
+        Vector2 size = GetComponent<Collider2D>().bounds.size;
+        float extraHeight = 0.05f;
+
+        RaycastHit2D hit = Physics2D.BoxCast(
+            position,
+            size,
+            0f,
+            Vector2.down,
+            extraHeight,
+            LayerMask.GetMask("Ground") // Make sure your ground objects are on a "Ground" layer
+        );
         return hit.collider != null;
     }
 
     public void PickUpObject(GameObject obj)
     {
         Rigidbody2D objRb = obj.GetComponent<Rigidbody2D>();
-        if (objRb == null)
+        Collider2D objCollider = obj.GetComponent<Collider2D>();
+        Collider2D playerCollider = GetComponent<Collider2D>();
+
+        if (objRb == null || objCollider == null || playerCollider == null)
         {
-            Debug.LogError("Object does not have a Rigidbody2D component!");
+            Debug.LogError("Missing Rigidbody2D or Collider2D!");
             return;
         }
 
         heldObject = obj;
+
+        // Ignore collisions between player and held object to prevent interactions
+        Physics2D.IgnoreCollision(playerCollider, objCollider, true);
+
+        // Parent and reset transform
         obj.transform.SetParent(holdPoint);
         obj.transform.localPosition = Vector3.zero;
-        objRb.bodyType = RigidbodyType2D.Kinematic; // Updated to use bodyType
+        obj.transform.localRotation = Quaternion.identity;
+
+        // Set kinematic and freeze rotation to disable physics on object
+        objRb.bodyType = RigidbodyType2D.Kinematic;
+        objRb.freezeRotation = true;
     }
+
 
     public void PutDownObject()
     {
         if (heldObject != null)
         {
             Rigidbody2D objRb = heldObject.GetComponent<Rigidbody2D>();
+            Collider2D objCollider = heldObject.GetComponent<Collider2D>();
+            Collider2D playerCollider = GetComponent<Collider2D>();
+
             if (objRb != null)
             {
-                objRb.bodyType = RigidbodyType2D.Dynamic; // Updated to use bodyType
+                //objRb.bodyType = RigidbodyType2D.Dynamic;
+                objRb.freezeRotation = false;
             }
+
+            if (objCollider != null && playerCollider != null)
+            {
+                Physics2D.IgnoreCollision(playerCollider, objCollider, false);
+            }
+
             heldObject.transform.SetParent(null);
             heldObject = null;
         }
     }
 
 
-public bool IsObjectNearby(out GameObject nearbyObject)
+    public bool IsObjectNearby(out GameObject nearbyObject)
     {
+        Debug.Log("Checking for nearby objects");
         // Use OverlapCircle for 2D detection
         Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, objectDetectionRadius, pickupLayer);
+        Debug.Log($"Found {colliders.Length} colliders in range");
+
         foreach (var collider in colliders)
         {
-            if (collider.CompareTag("Pickup"))
+            Debug.Log($"Found object: {collider.name}, Tag: {collider.tag}, Layer: {LayerMask.LayerToName(collider.gameObject.layer)}");
+            if (collider.CompareTag("PickUp"))
             {
                 nearbyObject = collider.gameObject;
                 return true;
+
             }
         }
         nearbyObject = null;
