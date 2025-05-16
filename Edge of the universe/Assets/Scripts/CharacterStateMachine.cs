@@ -30,7 +30,8 @@ public class IdleState : ICharacterState
     {
         bool isHolding = character.heldObject != null;
 
-        if (isHolding)
+        //Animate based on holding state
+         if (isHolding)
         {
             character.animator.Play("Idle holding");
         }
@@ -38,23 +39,30 @@ public class IdleState : ICharacterState
         {
             character.animator.Play("IDLE Milly bob");
         }
-        
-        // Start walking if horizontal input is pressed
+
+        // Walk
         if (Input.GetAxisRaw("Horizontal") != 0)
         {
             character.SetState(new WalkingState(character));
         }
 
-        // Jump if up arrow or W is pressed and grounded
+        // Jump
         if ((Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.W)) && character.IsGrounded())
         {
             character.SetState(new JumpingState(character));
         }
 
-        // Pick up if spacebar is pressed and object is nearby
-        if (Input.GetKeyDown(KeyCode.Space) && character.IsObjectNearby(out _))
+        // Pick up or put down
+        if (Input.GetKeyDown(KeyCode.Space))
         {
-            character.SetState(new PickingUpState(character));
+            if (isHolding)
+            {
+                character.PutDownObject();
+            }
+            else if (character.IsObjectNearby(out GameObject nearbyObject))
+            {
+                character.PickUpObject(nearbyObject);
+            }
         }
     }
 
@@ -88,41 +96,45 @@ public class WalkingState : ICharacterState
         character.rb.linearVelocity = velocity;
 
         bool isHolding = character.heldObject != null;
-   
-
-        //change animation based on if theyre holding
+        // Animate
         if (isHolding)
         {
-           character.animator.Play("walk holding");
-
+            character.animator.Play("walk holding");
         }
         else
         {
             character.animator.Play("WALK Milly");
         }
-            // Flip the character's scale to face the movement direction
-            if (moveHorizontal != 0)
+
+        // Flip
+        if (moveHorizontal != 0)
         {
             character.transform.localScale = new Vector3(Mathf.Sign(moveHorizontal) * Mathf.Abs(character.transform.localScale.x), character.transform.localScale.y, character.transform.localScale.z);
         }
 
-
-        // Go idle if no movement
+        // Idle if stopped
         if (moveHorizontal == 0)
         {
             character.SetState(new IdleState(character));
         }
 
-        // Jump if up arrow or W is pressed and grounded
+        // Jump
         if ((Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.W)) && character.IsGrounded())
         {
             character.SetState(new JumpingState(character));
         }
 
-        // Pick up if spacebar is pressed and object is nearby
-        if (Input.GetKeyDown(KeyCode.Space) && character.IsObjectNearby(out _))
+        // Pick up or put down
+        if (Input.GetKeyDown(KeyCode.Space))
         {
-            character.SetState(new PickingUpState(character));
+            if (isHolding)
+            {
+                character.PutDownObject();
+            }
+            else if (character.IsObjectNearby(out GameObject nearbyObject))
+            {
+                character.PickUpObject(nearbyObject);
+            }
         }
     }
 
@@ -132,77 +144,6 @@ public class WalkingState : ICharacterState
     }
 }
 
-// State for holding an object
-public class HoldingState : ICharacterState
-{
-    private readonly CharacterStateMachine character;
-
-    public HoldingState(CharacterStateMachine character)
-    {
-        this.character = character;
-    }
-
-    public void OnEnter()
-    {
-        Debug.Log("Entered Holding State");
-    }
-
-    public void Update()
-    {
-        character.SetState(new IdleState(character));
-        // Drop object with spacebar
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            character.PutDownObject();
-            character.SetState(new IdleState(character));
-        }
-        if (Input.GetAxisRaw("Horizontal") != 0)
-        {
-            character.SetState(new WalkingState(character));
-        }
-    }
-
-    public void OnExit()
-    {
-        Debug.Log("Exiting Holding State");
-    }
-}
-
-// State for picking up an object
-public class PickingUpState : ICharacterState
-{
-    private readonly CharacterStateMachine character;
-    private float enterTime;
-
-    public PickingUpState(CharacterStateMachine character)
-    {
-        this.character = character;
-    }
-
-    public void OnEnter()
-    {
-        Debug.Log("Entered Picking Up State");
-        enterTime = Time.time;
-
-        if (character.IsObjectNearby(out GameObject nearbyObject))
-        {
-            character.PickUpObject(nearbyObject);
-        }
-    }
-
-    public void Update()
-    {
-        if (Time.time > enterTime + character.stateTransitionDelay)
-        {
-            character.SetState(new HoldingState(character));
-        }
-    }
-
-    public void OnExit()
-    {
-        Debug.Log("Exiting Picking Up State");
-    }
-}
 
 // State for jumping
 public class JumpingState : ICharacterState
@@ -234,39 +175,9 @@ public class JumpingState : ICharacterState
     {
         Debug.Log("Exiting Jumping State");
     }
-}
+};
 
-// State for putting down an object (not used in this flow, but kept for completeness)
-public class PuttingDownState : ICharacterState
-{
-    private readonly CharacterStateMachine character;
-    private float enterTime;
 
-    public PuttingDownState(CharacterStateMachine character)
-    {
-        this.character = character;
-    }
-
-    public void OnEnter()
-    {
-        Debug.Log("Entered Putting Down State");
-        enterTime = Time.time;
-        character.PutDownObject();
-    }
-
-    public void Update()
-    {
-        if (Time.time > enterTime + character.stateTransitionDelay)
-        {
-            character.SetState(new WalkingState(character));
-        }
-    }
-
-    public void OnExit()
-    {
-        Debug.Log("Exiting Putting Down State");
-    }
-}
 
 // Main state machine MonoBehaviour for 2D
 public class CharacterStateMachine : MonoBehaviour
@@ -363,6 +274,10 @@ public class CharacterStateMachine : MonoBehaviour
         }
 
         heldObject = obj;
+        // Stop the object's movement
+        objRb.linearVelocity = Vector2.zero;
+        objRb.angularVelocity = 0f;
+
 
         // Ignore collisions between player and held object to prevent interactions
         Physics2D.IgnoreCollision(playerCollider, objCollider, true);
@@ -388,7 +303,7 @@ public class CharacterStateMachine : MonoBehaviour
 
             if (objRb != null)
             {
-                //objRb.bodyType = RigidbodyType2D.Dynamic;
+                objRb.bodyType = RigidbodyType2D.Dynamic;
                 objRb.freezeRotation = false;
             }
 
