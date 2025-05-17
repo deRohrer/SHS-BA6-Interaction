@@ -1,8 +1,11 @@
 using UnityEngine;
+using System.Collections;
 
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance { get; private set; }
+    public TutorialManager tutorial;
+
 
     public Planet currentPlanet;
     public void HideChildObjectsByParent(string parentObjectName)
@@ -53,6 +56,27 @@ public class GameManager : MonoBehaviour
     public bool IsCurrentPlanet(Planet planet)
     {
         return currentPlanet == planet;
+    }
+
+    void Start()
+    {
+        PromptManager.Instance.ShowPrompt("Oh no! Milly is stuck on a scary new planet");
+
+        StartCoroutine(StartTutorialAfterDelay(8f));
+    }
+
+    IEnumerator StartTutorialAfterDelay(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+
+        if (tutorial != null)
+        {
+            tutorial.StartMovementTutorial();
+        }
+        else
+        {
+            Debug.LogWarning("Tutorial script not assigned in GameManager.");
+        }
     }
 }
 
