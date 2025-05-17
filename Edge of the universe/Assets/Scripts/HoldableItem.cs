@@ -1,12 +1,13 @@
 using UnityEngine;
 
-public class Object : MonoBehaviour
+public class HoldableItem : MonoBehaviour
 {
     // Start is called once before the first execution of Update after the MonoBehaviour is created
+    public string itemType;
+    public Transform destination;
     void Start()
     {
-        GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Kinematic;// objects begin as kinematic and turn dynamic when dropped
-
+        
     }
 
     // Update is called once per frame

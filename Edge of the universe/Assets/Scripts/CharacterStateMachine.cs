@@ -301,21 +301,56 @@ public class CharacterStateMachine : MonoBehaviour
             Collider2D objCollider = heldObject.GetComponent<Collider2D>();
             Collider2D playerCollider = GetComponent<Collider2D>();
 
-            if (objRb != null)
+            GameObject destination = FindMatchingDestination(heldObject);
+            if (destination != null)
             {
-                objRb.bodyType = RigidbodyType2D.Dynamic;
-                objRb.freezeRotation = false;
+                heldObject.transform.SetParent(null);
+
+                DestinationTarget destinationTarget = destination.GetComponent<DestinationTarget>();
+                if (destinationTarget != null && destinationTarget.itemDropPoint != null)
+                {
+                    Debug.Log("putting in item drop point");
+                    heldObject.transform.position = destinationTarget.itemDropPoint.position;
+                }
+                else
+                {
+                    heldObject.transform.position = destination.transform.position;
+                }
+
+                if (objCollider != null)
+                    objCollider.enabled = false;
+
+                DestinationTarget target = destination.GetComponent<DestinationTarget>();
+
+                HoldableItem holdableItem = heldObject.GetComponent<HoldableItem>();
+
+                if (holdableItem != null)
+                {
+                    Debug.Log("Calling OnItemPlaced on: " + target.name);
+
+                    target.OnItemPlaced(holdableItem);//start sequence of things that happen when object is placed
+                }
+            }
+            else
+            {
+                if (objRb != null)
+                {
+                    objRb.bodyType = RigidbodyType2D.Dynamic;
+                    objRb.freezeRotation = false;
+                }
+
+                if (objCollider != null && playerCollider != null)
+                {
+                    Physics2D.IgnoreCollision(playerCollider, objCollider, false);
+                }
+
+                heldObject.transform.SetParent(null);
             }
 
-            if (objCollider != null && playerCollider != null)
-            {
-                Physics2D.IgnoreCollision(playerCollider, objCollider, false);
-            }
-
-            heldObject.transform.SetParent(null);
             heldObject = null;
         }
     }
+
 
 
     public bool IsObjectNearby(out GameObject nearbyObject)
@@ -338,4 +373,26 @@ public class CharacterStateMachine : MonoBehaviour
         nearbyObject = null;
         return false;
     }
+    private GameObject FindMatchingDestination(GameObject item)
+    {
+        if (item == null) return null;
+
+        HoldableItem holdable = item.GetComponent<HoldableItem>();
+        if (holdable == null) return null;
+
+        float detectionRadius = 2f;
+        Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, detectionRadius);
+
+        foreach (var col in colliders)
+        {
+            DestinationTarget destination = col.GetComponent<DestinationTarget>();
+            if (destination != null && destination.acceptedType == holdable.itemType)
+            {
+                return col.gameObject;
+            }
+        }
+
+        return null;
+    }
+
 }
