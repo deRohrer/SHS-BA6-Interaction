@@ -8,8 +8,7 @@ public class Nest : DestinationTarget
     public SpriteRenderer birdSpriteRenderer;
     public Sprite sadBirdSprite;
     public Sprite happyBirdSprite;
-    public GameObject milly;
-    private bool promptShown = false;
+  
     public override void OnItemPlaced(HoldableItem item)
     {
         Debug.Log("Bird will be changed after delay");
@@ -33,15 +32,6 @@ public class Nest : DestinationTarget
    
     }
 
-    private void OnTriggerEnter2D(Collider2D other)
-    {
-        if (promptShown) return;
-
-        if (other.gameObject == milly)
-        {
-            PromptManager.Instance.ShowPrompt("Oh look! the mum lost her egg\nPress space bar to drop");
-            promptShown = true;
-        }
-    }
+   
 
 }

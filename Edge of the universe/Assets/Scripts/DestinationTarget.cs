@@ -31,6 +31,7 @@ public class DestinationTarget : MonoBehaviour
             Destroy(reward, rewardLifetime);
         }
 
+
         // Increase spaceship part count
         FindFirstObjectByType<SpaceshipPartsManager>()?.AddPart();
     }

@@ -540,7 +540,7 @@ Transform:
   m_GameObject: {fileID: 102947421}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -12, y: 0.09, z: 0}
+  m_LocalPosition: {x: -12, y: 0.6, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -556,7 +556,7 @@ GameObject:
   m_Component:
   - component: {fileID: 114801558}
   - component: {fileID: 114801559}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Menu
   m_TagString: Menu
   m_Icon: {fileID: 0}
@@ -774,8 +774,9 @@ GameObject:
   m_Component:
   - component: {fileID: 241623944}
   - component: {fileID: 241623945}
-  m_Layer: 3
-  m_Name: Trigger collider
+  - component: {fileID: 241623946}
+  m_Layer: 5
+  m_Name: Egg text Trigger collider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -789,12 +790,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 241623943}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 2.5758002, y: 1.32, z: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -0.72, y: -1.68, z: -0.06536443}
+  m_LocalScale: {x: 1.8030599, y: 0.92399997, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1681347181}
+  m_Father: {fileID: 654728758}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!70 &241623945
 CapsuleCollider2D:
@@ -833,6 +834,19 @@ CapsuleCollider2D:
   m_Offset: {x: 0, y: 0}
   m_Size: {x: 0.5, y: 1}
   m_Direction: 0
+--- !u!114 &241623946
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 241623943}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 447473ce99eea92469294d617ebf35ac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  text: ?!\n Press space to pick up
 --- !u!1 &294585263
 GameObject:
   m_ObjectHideFlags: 0
@@ -843,6 +857,7 @@ GameObject:
   m_Component:
   - component: {fileID: 294585265}
   - component: {fileID: 294585264}
+  - component: {fileID: 294585266}
   m_Layer: 0
   m_Name: Game Manager
   m_TagString: Untagged
@@ -879,6 +894,20 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &294585266
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 294585263}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d63af7113e694984a8df9f1a52b37a95, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spaceshipPartsCollected: 0
+  partsCounterText: 
 --- !u!1 &336235869
 GameObject:
   m_ObjectHideFlags: 0
@@ -1006,7 +1035,7 @@ GameObject:
   - component: {fileID: 385779735}
   - component: {fileID: 385779736}
   - component: {fileID: 385779737}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Planet 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1489,7 +1518,6 @@ MonoBehaviour:
   birdSpriteRenderer: {fileID: 1080351965}
   sadBirdSprite: {fileID: 859857451197925546, guid: 7c779557cfc98c54488e8f1ff4b8ce9c, type: 3}
   happyBirdSprite: {fileID: -4884190104981520771, guid: e3e9bfcca28b4a44e9606350c7e7dafa, type: 3}
-  milly: {fileID: 10352364}
 --- !u!1 &428633198
 GameObject:
   m_ObjectHideFlags: 0
@@ -1677,7 +1705,7 @@ Transform:
   m_GameObject: {fileID: 603517756}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -14.43, y: 1.12, z: 0}
+  m_LocalPosition: {x: -12.04, y: 0.32, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1747,6 +1775,9 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 241623944}
+  - {fileID: 1125870605}
+  - {fileID: 1468449974}
   - {fileID: 1681347181}
   - {fileID: 963114230}
   - {fileID: 10352365}
@@ -1783,8 +1814,9 @@ GameObject:
   - component: {fileID: 676233588}
   - component: {fileID: 676233589}
   - component: {fileID: 676233590}
-  m_Layer: 0
-  m_Name: Planet 2
+  - component: {fileID: 676233591}
+  m_Layer: 8
+  m_Name: Planet 2.2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1922,6 +1954,44 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hoverScale: {x: 0.5, y: 0.5, z: 1}
+--- !u!1839735485 &676233591
+Tilemap:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 676233585}
+  m_Enabled: 1
+  m_Tiles: {}
+  m_AnimatedTiles: {}
+  m_TileAssetArray: []
+  m_TileSpriteArray: []
+  m_TileMatrixArray: []
+  m_TileColorArray: []
+  m_TileObjectToInstantiateArray: []
+  m_AnimationFrameRate: 1
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Origin: {x: 0, y: 0, z: 0}
+  m_Size: {x: 0, y: 0, z: 1}
+  m_TileAnchor: {x: 0.5, y: 0.5, z: 0}
+  m_TileOrientation: 0
+  m_TileOrientationMatrix:
+    e00: 1
+    e01: 0
+    e02: 0
+    e03: 0
+    e10: 0
+    e11: 1
+    e12: 0
+    e13: 0
+    e20: 0
+    e21: 0
+    e22: 1
+    e23: 0
+    e30: 0
+    e31: 0
+    e32: 0
+    e33: 1
 --- !u!1 &798636236
 GameObject:
   m_ObjectHideFlags: 0
@@ -2162,7 +2232,7 @@ GameObject:
   m_Component:
   - component: {fileID: 918546763}
   - component: {fileID: 918546764}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Starry sky_0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2465,6 +2535,10 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 7
       objectReference: {fileID: 0}
+    - target: {fileID: 6365023798874836850, guid: 4fa2d43d2743a98438c7665116712424, type: 3}
+      propertyPath: m_TagString
+      value: Player
+      objectReference: {fileID: 0}
     - target: {fileID: 6798993918442740566, guid: 4fa2d43d2743a98438c7665116712424, type: 3}
       propertyPath: m_Layer
       value: 7
@@ -2620,6 +2694,89 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &1125870604
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1125870605}
+  - component: {fileID: 1125870607}
+  - component: {fileID: 1125870606}
+  m_Layer: 5
+  m_Name: Menu text trigger collider
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1125870605
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1125870604}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 25.54, y: -1.68, z: -0.06536443}
+  m_LocalScale: {x: 1.8030599, y: 0.92399997, z: 0}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 654728758}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1125870606
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1125870604}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 447473ce99eea92469294d617ebf35ac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  text: Press M to open menu
+--- !u!70 &1125870607
+CapsuleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1125870604}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
+  m_Offset: {x: 0, y: 0}
+  m_Size: {x: 0.5, y: 1}
+  m_Direction: 0
 --- !u!1 &1202531012
 GameObject:
   m_ObjectHideFlags: 0
@@ -2633,7 +2790,7 @@ GameObject:
   - component: {fileID: 1202531015}
   - component: {fileID: 1202531014}
   - component: {fileID: 1202531017}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Planet 3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3056,6 +3213,89 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1468449973
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1468449974}
+  - component: {fileID: 1468449976}
+  - component: {fileID: 1468449975}
+  m_Layer: 5
+  m_Name: Nest text trigger
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1468449974
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1468449973}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 13.09, y: -1.4, z: -0.06536443}
+  m_LocalScale: {x: 4.0749154, y: 0.92399997, z: 0}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 654728758}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1468449975
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1468449973}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 447473ce99eea92469294d617ebf35ac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  text: Oh look! the mum lost her egg\nPress space bar to drop
+--- !u!70 &1468449976
+CapsuleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1468449973}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
+  m_Offset: {x: 0, y: 0}
+  m_Size: {x: 0.5, y: 1}
+  m_Direction: 0
 --- !u!1 &1681347180
 GameObject:
   m_ObjectHideFlags: 0
@@ -3088,8 +3328,7 @@ Transform:
   m_LocalPosition: {x: -0.77, y: 0.81, z: -0.06536443}
   m_LocalScale: {x: 0.7, y: 0.7, z: 0}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 241623944}
+  m_Children: []
   m_Father: {fileID: 654728758}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!70 &1681347182
@@ -3491,7 +3730,7 @@ Transform:
   m_GameObject: {fileID: 1919358697}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 9.939209, y: -2.81, z: -0.06536443}
+  m_LocalPosition: {x: 9.939209, y: -2.67, z: -0.06536443}
   m_LocalScale: {x: 61.55451, y: 0.86355996, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -3757,7 +3996,7 @@ Transform:
   m_GameObject: {fileID: 2068188732}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -13, y: 0.75, z: 0}
+  m_LocalPosition: {x: -13, y: 1.09, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

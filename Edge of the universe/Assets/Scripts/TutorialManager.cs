@@ -11,9 +11,10 @@ public class TutorialManager : MonoBehaviour
     public void StartMovementTutorial()
     {
         PromptManager.Instance.ShowPrompt("Press → to move right.");
+        Tutorial();
     }
 
-    void Update()
+    void Tutorial()
     {
         if (!hasMovedRight && Input.GetKeyDown(KeyCode.RightArrow))
         {

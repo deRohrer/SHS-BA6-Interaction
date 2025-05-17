@@ -6,6 +6,13 @@ public class MenuPlanet : MonoBehaviour
 
     void OnMouseDown()
     {
+        SpriteRenderer sr = GetComponent<SpriteRenderer>();
+        if (sr != null && sr.enabled)
+        {
+            Debug.LogWarning("Menu is inactive");
+            return;//do not allow transitions in menu is inactive
+        }
+        
         if (destinationPlanet == null)
         {
             Debug.LogWarning("No destination planet assigned!");
