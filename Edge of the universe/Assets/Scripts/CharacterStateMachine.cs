@@ -12,6 +12,7 @@ public interface ICharacterState
 public class IdleState : ICharacterState
 {
     private readonly CharacterStateMachine character;
+    public Animator animator;
 
     public IdleState(CharacterStateMachine character)
     {
@@ -21,26 +22,47 @@ public class IdleState : ICharacterState
     public void OnEnter()
     {
         Debug.Log("Entered Idle State");
+        
+
     }
 
     public void Update()
     {
-        // Start walking if horizontal input is pressed
+        bool isHolding = character.heldObject != null;
+
+        //Animate based on holding state
+         if (isHolding)
+        {
+            character.animator.Play("Idle holding");
+        }
+        else
+        {
+            character.animator.Play("IDLE Milly bob");
+        }
+
+        // Walk
         if (Input.GetAxisRaw("Horizontal") != 0)
         {
             character.SetState(new WalkingState(character));
         }
 
-        // Jump if up arrow or W is pressed and grounded
+        // Jump
         if ((Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.W)) && character.IsGrounded())
         {
             character.SetState(new JumpingState(character));
         }
 
-        // Pick up if spacebar is pressed and object is nearby
-        if (Input.GetKeyDown(KeyCode.Space) && character.IsObjectNearby(out _))
+        // Pick up or put down
+        if (Input.GetKeyDown(KeyCode.Space))
         {
-            character.SetState(new PickingUpState(character));
+            if (isHolding)
+            {
+                character.PutDownObject();
+            }
+            else if (character.IsObjectNearby(out GameObject nearbyObject))
+            {
+                character.PickUpObject(nearbyObject);
+            }
         }
     }
 
@@ -63,6 +85,7 @@ public class WalkingState : ICharacterState
     public void OnEnter()
     {
         Debug.Log("Entered Walking State");
+
     }
 
     public void Update()
@@ -72,28 +95,46 @@ public class WalkingState : ICharacterState
         velocity.x = moveHorizontal * character.moveSpeed;
         character.rb.linearVelocity = velocity;
 
-        // Flip the character's scale to face the movement direction
+        bool isHolding = character.heldObject != null;
+        // Animate
+        if (isHolding)
+        {
+            character.animator.Play("walk holding");
+        }
+        else
+        {
+            character.animator.Play("WALK Milly");
+        }
+
+        // Flip
         if (moveHorizontal != 0)
         {
             character.transform.localScale = new Vector3(Mathf.Sign(moveHorizontal) * Mathf.Abs(character.transform.localScale.x), character.transform.localScale.y, character.transform.localScale.z);
         }
 
-        // Go idle if no movement
+        // Idle if stopped
         if (moveHorizontal == 0)
         {
             character.SetState(new IdleState(character));
         }
 
-        // Jump if up arrow or W is pressed and grounded
+        // Jump
         if ((Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.W)) && character.IsGrounded())
         {
             character.SetState(new JumpingState(character));
         }
 
-        // Pick up if spacebar is pressed and object is nearby
-        if (Input.GetKeyDown(KeyCode.Space) && character.IsObjectNearby(out _))
+        // Pick up or put down
+        if (Input.GetKeyDown(KeyCode.Space))
         {
-            character.SetState(new PickingUpState(character));
+            if (isHolding)
+            {
+                character.PutDownObject();
+            }
+            else if (character.IsObjectNearby(out GameObject nearbyObject))
+            {
+                character.PickUpObject(nearbyObject);
+            }
         }
     }
 
@@ -103,72 +144,6 @@ public class WalkingState : ICharacterState
     }
 }
 
-// State for holding an object
-public class HoldingState : ICharacterState
-{
-    private readonly CharacterStateMachine character;
-
-    public HoldingState(CharacterStateMachine character)
-    {
-        this.character = character;
-    }
-
-    public void OnEnter()
-    {
-        Debug.Log("Entered Holding State");
-    }
-
-    public void Update()
-    {
-        // Drop object with spacebar
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            character.PutDownObject();
-            character.SetState(new IdleState(character));
-        }
-    }
-
-    public void OnExit()
-    {
-        Debug.Log("Exiting Holding State");
-    }
-}
-
-// State for picking up an object
-public class PickingUpState : ICharacterState
-{
-    private readonly CharacterStateMachine character;
-    private float enterTime;
-
-    public PickingUpState(CharacterStateMachine character)
-    {
-        this.character = character;
-    }
-
-    public void OnEnter()
-    {
-        Debug.Log("Entered Picking Up State");
-        enterTime = Time.time;
-
-        if (character.IsObjectNearby(out GameObject nearbyObject))
-        {
-            character.PickUpObject(nearbyObject);
-        }
-    }
-
-    public void Update()
-    {
-        if (Time.time > enterTime + character.stateTransitionDelay)
-        {
-            character.SetState(new HoldingState(character));
-        }
-    }
-
-    public void OnExit()
-    {
-        Debug.Log("Exiting Picking Up State");
-    }
-}
 
 // State for jumping
 public class JumpingState : ICharacterState
@@ -188,6 +163,7 @@ public class JumpingState : ICharacterState
 
     public void Update()
     {
+        Debug.Log("Grounded: " + character.IsGrounded());
         // Return to walking when grounded
         if (character.IsGrounded())
         {
@@ -199,49 +175,20 @@ public class JumpingState : ICharacterState
     {
         Debug.Log("Exiting Jumping State");
     }
-}
+};
 
-// State for putting down an object (not used in this flow, but kept for completeness)
-public class PuttingDownState : ICharacterState
-{
-    private readonly CharacterStateMachine character;
-    private float enterTime;
 
-    public PuttingDownState(CharacterStateMachine character)
-    {
-        this.character = character;
-    }
-
-    public void OnEnter()
-    {
-        Debug.Log("Entered Putting Down State");
-        enterTime = Time.time;
-        character.PutDownObject();
-    }
-
-    public void Update()
-    {
-        if (Time.time > enterTime + character.stateTransitionDelay)
-        {
-            character.SetState(new WalkingState(character));
-        }
-    }
-
-    public void OnExit()
-    {
-        Debug.Log("Exiting Putting Down State");
-    }
-}
 
 // Main state machine MonoBehaviour for 2D
 public class CharacterStateMachine : MonoBehaviour
 {
     public Rigidbody2D rb; // 2D Rigidbody
+    public Animator animator;//milly animations
     public float moveSpeed = 5f; // Horizontal move speed
     public float jumpForce = 7f; // Jump force
     public Transform holdPoint; // Where to hold objects
     public GameObject heldObject; // Currently held object
-    public float objectDetectionRadius = 1f; // Pickup radius
+    public float objectDetectionRadius = 3f; // Pickup radius
     public float stateTransitionDelay = 0.1f; // Delay for state transitions
     public LayerMask pickupLayer; // Layer for pickup objects
     private ICharacterState currentState;
@@ -286,6 +233,8 @@ public class CharacterStateMachine : MonoBehaviour
 
     public void Jump()
     {
+        Debug.Log("Jump called");
+
         // Only jump if grounded
         if (IsGrounded())
         {
@@ -297,53 +246,153 @@ public class CharacterStateMachine : MonoBehaviour
     public bool IsGrounded()
     {
         // Raycast down to check for ground
-        RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.down, GetComponent<Collider2D>().bounds.extents.y + 0.1f, ~pickupLayer);
+        Vector2 position = transform.position;
+        Vector2 size = GetComponent<Collider2D>().bounds.size;
+        float extraHeight = 0.05f;
+
+        RaycastHit2D hit = Physics2D.BoxCast(
+            position,
+            size,
+            0f,
+            Vector2.down,
+            extraHeight,
+            LayerMask.GetMask("Ground") // Make sure your ground objects are on a "Ground" layer
+        );
         return hit.collider != null;
     }
 
     public void PickUpObject(GameObject obj)
     {
         Rigidbody2D objRb = obj.GetComponent<Rigidbody2D>();
-        if (objRb == null)
+        Collider2D objCollider = obj.GetComponent<Collider2D>();
+        Collider2D playerCollider = GetComponent<Collider2D>();
+
+        if (objRb == null || objCollider == null || playerCollider == null)
         {
-            Debug.LogError("Object does not have a Rigidbody2D component!");
+            Debug.LogError("Missing Rigidbody2D or Collider2D!");
             return;
         }
 
         heldObject = obj;
+        // Stop the object's movement
+        objRb.linearVelocity = Vector2.zero;
+        objRb.angularVelocity = 0f;
+
+
+        // Ignore collisions between player and held object to prevent interactions
+        Physics2D.IgnoreCollision(playerCollider, objCollider, true);
+
+        // Parent and reset transform
         obj.transform.SetParent(holdPoint);
         obj.transform.localPosition = Vector3.zero;
-        objRb.bodyType = RigidbodyType2D.Kinematic; // Updated to use bodyType
+        obj.transform.localRotation = Quaternion.identity;
+
+        // Set kinematic and freeze rotation to disable physics on object
+        objRb.bodyType = RigidbodyType2D.Kinematic;
+        objRb.freezeRotation = true;
     }
+
 
     public void PutDownObject()
     {
         if (heldObject != null)
         {
             Rigidbody2D objRb = heldObject.GetComponent<Rigidbody2D>();
-            if (objRb != null)
+            Collider2D objCollider = heldObject.GetComponent<Collider2D>();
+            Collider2D playerCollider = GetComponent<Collider2D>();
+
+            GameObject destination = FindMatchingDestination(heldObject);
+            if (destination != null)
             {
-                objRb.bodyType = RigidbodyType2D.Dynamic; // Updated to use bodyType
+                heldObject.transform.SetParent(null);
+
+                DestinationTarget destinationTarget = destination.GetComponent<DestinationTarget>();
+                if (destinationTarget != null && destinationTarget.itemDropPoint != null)
+                {
+                    Debug.Log("putting in item drop point");
+                    heldObject.transform.position = destinationTarget.itemDropPoint.position;
+                }
+                else
+                {
+                    heldObject.transform.position = destination.transform.position;
+                }
+
+                if (objCollider != null)
+                    objCollider.enabled = false;
+
+                DestinationTarget target = destination.GetComponent<DestinationTarget>();
+
+                HoldableItem holdableItem = heldObject.GetComponent<HoldableItem>();
+
+                if (holdableItem != null)
+                {
+                    Debug.Log("Calling OnItemPlaced on: " + target.name);
+
+                    target.OnItemPlaced(holdableItem);//start sequence of things that happen when object is placed
+                }
             }
-            heldObject.transform.SetParent(null);
+            else
+            {
+                if (objRb != null)
+                {
+                    objRb.bodyType = RigidbodyType2D.Dynamic;
+                    objRb.freezeRotation = false;
+                }
+
+                if (objCollider != null && playerCollider != null)
+                {
+                    Physics2D.IgnoreCollision(playerCollider, objCollider, false);
+                }
+
+                heldObject.transform.SetParent(null);
+            }
+
             heldObject = null;
         }
     }
 
 
-public bool IsObjectNearby(out GameObject nearbyObject)
+
+    public bool IsObjectNearby(out GameObject nearbyObject)
     {
+        Debug.Log("Checking for nearby objects");
         // Use OverlapCircle for 2D detection
         Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, objectDetectionRadius, pickupLayer);
+        Debug.Log($"Found {colliders.Length} colliders in range");
+
         foreach (var collider in colliders)
         {
-            if (collider.CompareTag("Pickup"))
+            Debug.Log($"Found object: {collider.name}, Tag: {collider.tag}, Layer: {LayerMask.LayerToName(collider.gameObject.layer)}");
+            if (collider.CompareTag("PickUp"))
             {
                 nearbyObject = collider.gameObject;
                 return true;
+
             }
         }
         nearbyObject = null;
         return false;
     }
+    private GameObject FindMatchingDestination(GameObject item)
+    {
+        if (item == null) return null;
+
+        HoldableItem holdable = item.GetComponent<HoldableItem>();
+        if (holdable == null) return null;
+
+        float detectionRadius = 2f;
+        Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, detectionRadius);
+
+        foreach (var col in colliders)
+        {
+            DestinationTarget destination = col.GetComponent<DestinationTarget>();
+            if (destination != null && destination.acceptedType == holdable.itemType)
+            {
+                return col.gameObject;
+            }
+        }
+
+        return null;
+    }
+
 }
