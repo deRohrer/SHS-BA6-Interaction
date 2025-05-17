@@ -848,11 +848,11 @@ Transform:
   m_GameObject: {fileID: 336235869}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -6.57, y: 0.44, z: -0.06536443}
+  m_LocalPosition: {x: -6.57, y: 0.44000006, z: -0.06536443}
   m_LocalScale: {x: 1.5, y: 1.5, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 654728758}
+  m_Father: {fileID: 1815646784}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &336235871
 SpriteRenderer:
@@ -1185,8 +1185,8 @@ GameObject:
   m_Component:
   - component: {fileID: 415628956}
   - component: {fileID: 415628957}
-  - component: {fileID: 415628959}
   - component: {fileID: 415628958}
+  - component: {fileID: 415628959}
   m_Layer: 0
   m_Name: Nest_0
   m_TagString: Untagged
@@ -1207,7 +1207,7 @@ Transform:
   m_LocalScale: {x: 0.8, y: 0.8, z: 0.8}
   m_ConstrainProportionsScale: 1
   m_Children: []
-  m_Father: {fileID: 654728758}
+  m_Father: {fileID: 1815646784}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &415628957
 SpriteRenderer:
@@ -1294,7 +1294,7 @@ BoxCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
@@ -1319,10 +1319,17 @@ MonoBehaviour:
   m_GameObject: {fileID: 415628955}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bd8a9c0b90c066240b08c1d3de9407f7, type: 3}
+  m_Script: {fileID: 11500000, guid: 0815a8483e64a9046b80ede31f86f44b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   acceptedType: Egg
+  rewardPrefab: {fileID: 8989162739276974391, guid: 94984a57d29f2654e99866593c11076c, type: 3}
+  rewardDropPoint: {fileID: 603517757}
+  rewardLifetime: 4
+  itemDropPoint: {fileID: 442767188}
+  birdSpriteRenderer: {fileID: 1080351965}
+  sadBirdSprite: {fileID: 859857451197925546, guid: 7c779557cfc98c54488e8f1ff4b8ce9c, type: 3}
+  happyBirdSprite: {fileID: -4884190104981520771, guid: e3e9bfcca28b4a44e9606350c7e7dafa, type: 3}
 --- !u!1 &428633198
 GameObject:
   m_ObjectHideFlags: 0
@@ -1410,6 +1417,68 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &442767187
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 442767188}
+  m_Layer: 0
+  m_Name: Egg drop pt
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &442767188
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 442767187}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -8.7, y: 1.49, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1815646784}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &603517756
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 603517757}
+  m_Layer: 0
+  m_Name: Reward spawning pt
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &603517757
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 603517756}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -14.43, y: 1.12, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1815646784}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &605008301
 GameObject:
   m_ObjectHideFlags: 0
@@ -1474,15 +1543,13 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 1080351964}
-  - {fileID: 415628956}
   - {fileID: 1681347181}
   - {fileID: 963114230}
   - {fileID: 10352365}
-  - {fileID: 336235870}
   - {fileID: 605008302}
   - {fileID: 167037816}
   - {fileID: 817679148}
+  - {fileID: 1815646784}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &654728759
@@ -2245,7 +2312,7 @@ Transform:
   m_LocalScale: {x: 0.4, y: 0.4, z: 0.4}
   m_ConstrainProportionsScale: 1
   m_Children: []
-  m_Father: {fileID: 654728758}
+  m_Father: {fileID: 1815646784}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &1080351965
 SpriteRenderer:
@@ -2689,7 +2756,7 @@ Transform:
   m_GameObject: {fileID: 1681347180}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -9.46, y: -0.19, z: -0.06536443}
+  m_LocalPosition: {x: -0.77, y: 0.81, z: -0.06536443}
   m_LocalScale: {x: 0.7, y: 0.7, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2800,9 +2867,9 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: -1719405951
-  m_SortingLayer: 1
-  m_SortingOrder: 0
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 3
   m_Sprite: {fileID: 4646649027328027380, guid: bfb3dc8a85e3120438e8c9d2467d6fb0, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -2839,6 +2906,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemType: Egg
+  destination: {fileID: 0}
 --- !u!1 &1684355075
 GameObject:
   m_ObjectHideFlags: 0
@@ -2991,6 +3059,42 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &1815646783
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1815646784}
+  m_Layer: 0
+  m_Name: Nest-bird-tree complex
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1815646784
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1815646783}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 22.02, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 603517757}
+  - {fileID: 1080351964}
+  - {fileID: 415628956}
+  - {fileID: 336235870}
+  - {fileID: 442767188}
+  m_Father: {fileID: 654728758}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1876677934
 GameObject:
   m_ObjectHideFlags: 0
