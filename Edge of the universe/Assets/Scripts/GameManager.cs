@@ -5,6 +5,7 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager Instance { get; private set; }
     public TutorialManager tutorial;
+    public bool StartTutorial=false;
 
 
     public Planet currentPlanet;
@@ -62,7 +63,10 @@ public class GameManager : MonoBehaviour
     {
         PromptManager.Instance.ShowPrompt("Oh no! Milly is stuck on a scary new planet");
 
-        StartCoroutine(StartTutorialAfterDelay(8f));
+        if (StartTutorial)
+        {
+            StartCoroutine(StartTutorialAfterDelay(8f));
+        }
     }
 
     IEnumerator StartTutorialAfterDelay(float delay)

@@ -8,14 +8,19 @@ public class TutorialManager : MonoBehaviour
     private bool hasMovedLeft = false;
     private bool hasPressedM = false;
 
+    private bool startedTut = false;
+
     public void StartMovementTutorial()
     {
+        startedTut = true;
         PromptManager.Instance.ShowPrompt("Press → to move right.");
-        Tutorial();
     }
 
-    void Tutorial()
+    void Update()
     {
+        if (!startedTut)
+            return;
+
         if (!hasMovedRight && Input.GetKeyDown(KeyCode.RightArrow))
         {
             hasMovedRight = true;
