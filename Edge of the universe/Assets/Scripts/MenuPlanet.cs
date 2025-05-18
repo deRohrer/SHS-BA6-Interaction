@@ -4,15 +4,16 @@ public class MenuPlanet : MonoBehaviour
 {
     public Planet destinationPlanet; // assign this in Inspector
 
-    void OnMouseDown()
+    public void SetVisible(bool visible)
     {
         SpriteRenderer sr = GetComponent<SpriteRenderer>();
-        if (sr != null && sr.enabled)
-        {
-            Debug.LogWarning("Menu is inactive");
-            return;//do not allow transitions in menu is inactive
-        }
-        
+        Collider2D col = GetComponent<Collider2D>();
+
+        if (sr != null) sr.enabled = visible;
+        if (col != null) col.enabled = visible;
+    }
+    void OnMouseDown()
+    {
         if (destinationPlanet == null)
         {
             Debug.LogWarning("No destination planet assigned!");
