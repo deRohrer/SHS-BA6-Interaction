@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class Menu : MonoBehaviour
 {
@@ -10,6 +11,13 @@ public class Menu : MonoBehaviour
     private Camera mainCamera;
     private bool isVisible = false;
 
+    private List<MenuPlanet> menuPlanets;
+
+    void Awake()
+    {
+        // Get all MenuPlanet components in children of this Menu object
+        menuPlanets = new List<MenuPlanet>(GetComponentsInChildren<MenuPlanet>());
+    }
     void Start()
     {
         spriteRenderers = GetComponentsInChildren<SpriteRenderer>(includeInactive: true);
@@ -39,12 +47,21 @@ public class Menu : MonoBehaviour
     {
         isVisible = true;
         SetAlpha(1f);
+
+        foreach (MenuPlanet planet in menuPlanets)
+        {
+            planet.SetVisible(true);  // Enable sprite and collider on each planet
+        }
     }
 
     private void HideMenuInstantly()
     {
         isVisible = false;
         SetAlpha(0f);
+        foreach (MenuPlanet planet in menuPlanets)
+        {
+            planet.SetVisible(false);  // Enable sprite and collider on each planet
+        }
     }
 
     private IEnumerator FadeOutMenu()
@@ -61,6 +78,10 @@ public class Menu : MonoBehaviour
         }
 
         SetAlpha(0f);
+        foreach (MenuPlanet planet in menuPlanets)
+        {
+            planet.SetVisible(false);  // Enable sprite and collider on each planet
+        }
     }
 
     private void SetAlpha(float alpha)

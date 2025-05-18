@@ -4,6 +4,14 @@ public class MenuPlanet : MonoBehaviour
 {
     public Planet destinationPlanet; // assign this in Inspector
 
+    public void SetVisible(bool visible)
+    {
+        SpriteRenderer sr = GetComponent<SpriteRenderer>();
+        Collider2D col = GetComponent<Collider2D>();
+
+        if (sr != null) sr.enabled = visible;
+        if (col != null) col.enabled = visible;
+    }
     void OnMouseDown()
     {
         if (destinationPlanet == null)

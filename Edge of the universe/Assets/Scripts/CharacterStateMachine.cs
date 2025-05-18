@@ -195,6 +195,7 @@ public class CharacterStateMachine : MonoBehaviour
 
     private void Start()
     {
+
         // Ensure Rigidbody2D is present
         rb = GetComponent<Rigidbody2D>();
         if (rb == null)
