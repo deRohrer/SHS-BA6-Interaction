@@ -5,7 +5,9 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager Instance { get; private set; }
     public TutorialManager tutorial;
+    public Story story;
     public bool StartTutorial=false;
+    public bool StartStory = false;
 
 
     public Planet currentPlanet;
@@ -61,26 +63,32 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
-        PromptManager.Instance.ShowPrompt("Oh no! Milly is stuck on a scary new planet");
+        StartCoroutine(PlayIntroSequence());
+    }
+
+    private IEnumerator PlayIntroSequence()
+    {
+        if (StartStory)
+        {
+            yield return StartCoroutine(story.PlayStoryAndWait());
+        }
+
+        PromptManager.Instance.ShowPrompt("Oh no! I'm stuck on a scary new planet");
 
         if (StartTutorial)
         {
-            StartCoroutine(StartTutorialAfterDelay(8f));
+            yield return new WaitForSeconds(8f);
+
+            if (tutorial != null)
+            {
+                tutorial.StartMovementTutorial();
+            }
+            else
+            {
+                Debug.LogWarning("Tutorial script not assigned in GameManager.");
+            }
         }
     }
-
-    IEnumerator StartTutorialAfterDelay(float delay)
-    {
-        yield return new WaitForSeconds(delay);
-
-        if (tutorial != null)
-        {
-            tutorial.StartMovementTutorial();
-        }
-        else
-        {
-            Debug.LogWarning("Tutorial script not assigned in GameManager.");
-        }
-    }
+       
 }
 

@@ -23,6 +23,10 @@ public class Menu : MonoBehaviour
         spriteRenderers = GetComponentsInChildren<SpriteRenderer>(includeInactive: true);
         mainCamera = Camera.main;
         SetAlpha(0f);  // Start hidden
+        foreach (MenuPlanet planet in menuPlanets)
+        {
+            planet.SetVisible(false);  // Enable sprite and collider on each planet
+        }
     }
 
     void Update()
