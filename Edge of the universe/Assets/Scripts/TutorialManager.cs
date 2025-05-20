@@ -24,12 +24,12 @@ public class TutorialManager : MonoBehaviour
         if (!hasMovedRight && Input.GetKeyDown(KeyCode.RightArrow))
         {
             hasMovedRight = true;
-            StartCoroutine(ShowPromptWithDelay("Now press ← to move left.", 3f));
+            StartCoroutine(ShowPromptWithDelay("Now press ← to move left.", 1f));
         }
         else if (hasMovedRight && !hasMovedLeft && Input.GetKeyDown(KeyCode.LeftArrow))
         {
             hasMovedLeft = true;
-            StartCoroutine(ShowPromptWithDelay("Nice! Now press ↑ to jump.", 3f));
+            StartCoroutine(ShowPromptWithDelay("Nice! Now press ↑ to jump.", 1f));
         }
         else if (hasMovedLeft && !hasJumped && Input.GetKeyDown(KeyCode.UpArrow))
         {

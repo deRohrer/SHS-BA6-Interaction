@@ -10,7 +10,7 @@ public class PromptManager : MonoBehaviour
     public float displayDuration = 3f; // Time after typing before disappearing
     public GameObject speechBubblePrefab;
     public Transform speechBubbleAnchor;
-
+  
     private Coroutine currentTypingCoroutine;
     private GameObject currentBubble;
     private TMP_Text currentPromptText;
@@ -43,6 +43,9 @@ public class PromptManager : MonoBehaviour
 
         // Instantiate the speech bubble prefab as a child of the anchor transform
         currentBubble = Instantiate(speechBubblePrefab, speechBubbleAnchor.position, Quaternion.identity, speechBubbleAnchor);
+        
+   
+
 
         // Get the TMP_Text component inside the prefab (assumes it's on the prefab or child)
         currentPromptText = currentBubble.GetComponentInChildren<TMP_Text>();
