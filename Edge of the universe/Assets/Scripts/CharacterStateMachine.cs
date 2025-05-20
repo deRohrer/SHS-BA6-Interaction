@@ -315,6 +315,7 @@ public class CharacterStateMachine : MonoBehaviour
                 }
                 else
                 {
+                    Debug.Log("falling back on putting item on destination position");
                     heldObject.transform.position = destination.transform.position;
                 }
 

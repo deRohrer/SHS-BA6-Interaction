@@ -9,7 +9,7 @@ public class DestinationTarget : MonoBehaviour
     public Transform rewardDropPoint;
     public float rewardLifetime = 2f;
     public Transform itemDropPoint;
-
+   
 
     public virtual void OnItemPlaced(HoldableItem item)
     {
