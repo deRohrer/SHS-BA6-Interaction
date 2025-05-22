@@ -1,4 +1,6 @@
 using UnityEngine;
+using UnityEngine.Audio;
+
 
 // Define the ICharacterState interface
 public interface ICharacterState
@@ -192,10 +194,11 @@ public class CharacterStateMachine : MonoBehaviour
     public float stateTransitionDelay = 0.1f; // Delay for state transitions
     public LayerMask pickupLayer; // Layer for pickup objects
     private ICharacterState currentState;
+    private AudioSource audioSource;
 
     private void Start()
     {
-
+        audioSource = GetComponent<AudioSource>();
         // Ensure Rigidbody2D is present
         rb = GetComponent<Rigidbody2D>();
         if (rb == null)
@@ -291,6 +294,12 @@ public class CharacterStateMachine : MonoBehaviour
         // Set kinematic and freeze rotation to disable physics on object
         objRb.bodyType = RigidbodyType2D.Kinematic;
         objRb.freezeRotation = true;
+
+        if (audioSource != null)
+        {
+            Debug.Log("Playing pickup sound");
+            audioSource.PlayOneShot(audioSource.clip);
+        }
     }
 
 
