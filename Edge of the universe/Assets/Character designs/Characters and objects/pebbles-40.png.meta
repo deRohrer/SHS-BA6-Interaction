@@ -1,10 +1,16 @@
 fileFormatVersion: 2
-guid: ae4145f73dcb14b4f9763ec7625a3224
+guid: 4b12ee68d29198542bc2dcd1a3d5e1e0
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -3478766892031510834
-    second: Senza titolo-4_0
+      213: -3387861059531053040
+    second: pebbles-40_0
+  - first:
+      213: 297924663080373819
+    second: pebbles-40_1
+  - first:
+      213: 2229564095161163347
+    second: pebbles-40_2
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -96,30 +102,17 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
-  - serializedVersion: 4
-    buildTarget: WebGL
-    maxTextureSize: 2048
-    resizeAlgorithm: 0
-    textureFormat: -1
-    textureCompression: 1
-    compressionQuality: 50
-    crunchedCompression: 0
-    allowsAlphaSplitting: 0
-    overridden: 0
-    ignorePlatformSupport: 0
-    androidETC2FallbackOverride: 0
-    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Senza titolo-4_0
+      name: pebbles-40_0
       rect:
         serializedVersion: 2
-        x: 0
-        y: 0
-        width: 2048
-        height: 512
+        x: 23
+        y: 85
+        width: 79
+        height: 57
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -128,8 +121,52 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: ec6721861ffe8bfc0800000000000000
-      internalID: -3478766892031510834
+      spriteID: 018e546e056ebf0d0800000000000000
+      internalID: -3387861059531053040
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: pebbles-40_1
+      rect:
+        serializedVersion: 2
+        x: 108
+        y: 42
+        width: 80
+        height: 66
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b3ecbb017e0722400800000000000000
+      internalID: 297924663080373819
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: pebbles-40_2
+      rect:
+        serializedVersion: 2
+        x: 194
+        y: 107
+        width: 63
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 35edb085bb001fe10800000000000000
+      internalID: 2229564095161163347
       vertices: []
       indices: 
       edges: []
@@ -147,8 +184,7 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable:
-      Senza titolo-4_0: -3478766892031510834
+    nameFileIdTable: {}
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

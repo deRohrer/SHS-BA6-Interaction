@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: ae4145f73dcb14b4f9763ec7625a3224
+guid: ea9d9ac0e0b00ef4987b79dbe2b1c5d1
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -3478766892031510834
-    second: Senza titolo-4_0
+      213: -4454734027957419975
+    second: plant-39_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -96,30 +96,17 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
-  - serializedVersion: 4
-    buildTarget: WebGL
-    maxTextureSize: 2048
-    resizeAlgorithm: 0
-    textureFormat: -1
-    textureCompression: 1
-    compressionQuality: 50
-    crunchedCompression: 0
-    allowsAlphaSplitting: 0
-    overridden: 0
-    ignorePlatformSupport: 0
-    androidETC2FallbackOverride: 0
-    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Senza titolo-4_0
+      name: plant-39_0
       rect:
         serializedVersion: 2
-        x: 0
-        y: 0
-        width: 2048
-        height: 512
+        x: 16
+        y: 88
+        width: 742
+        height: 461
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -128,8 +115,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: ec6721861ffe8bfc0800000000000000
-      internalID: -3478766892031510834
+      spriteID: 930c0c6f00b9d22c0800000000000000
+      internalID: -4454734027957419975
       vertices: []
       indices: 
       edges: []
@@ -148,7 +135,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Senza titolo-4_0: -3478766892031510834
+      plant-39_0: -4454734027957419975
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
