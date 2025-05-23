@@ -4,6 +4,7 @@ public class Planet : MonoBehaviour
 {
     public Transform destinationPointPlayer;
     public Transform destinationPointCamera;
+    public AudioClip planetMusic;
 
 
 }

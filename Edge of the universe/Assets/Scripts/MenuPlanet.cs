@@ -12,6 +12,7 @@ public class MenuPlanet : MonoBehaviour
     private GameObject playerMarkerInstance;
     private SpriteRenderer playerMarkerRenderer;
 
+
     public void ShowPlayerMarker(bool show)
     {
         if (show)
@@ -99,6 +100,10 @@ public class MenuPlanet : MonoBehaviour
                 );
 
                 GameManager.Instance.SetCurrentPlanet(destinationPlanet);
+                Debug.Log("Playing planet music");
+
+                MusicManager.Instance.PlayMusic(destinationPlanet.planetMusic);
+
 
                 //GameManager.Instance.HideChildObjectsByParent("Menu");
 

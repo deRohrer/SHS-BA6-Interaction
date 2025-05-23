@@ -63,6 +63,7 @@ public class Menu : MonoBehaviour
         UpdatePlayerMarker(GameManager.Instance.currentPlanet);
 
 
+
         if (!hasOpenedMenuOnce)
         {
 
