@@ -234,6 +234,8 @@ MonoBehaviour:
   pickupLayer:
     serializedVersion: 2
     m_Bits: 8
+  pickup: {fileID: 8300000, guid: 86694893a15ba114e9ea67618d1afa51, type: 3}
+  drop: {fileID: 8300000, guid: a3f3077b89519d647ad458a04717ab7d, type: 3}
 --- !u!50 &10352369
 Rigidbody2D:
   serializedVersion: 5
@@ -3214,7 +3216,7 @@ Transform:
   m_GameObject: {fileID: 1125870604}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 46.55, y: -1.68, z: -0.06536443}
+  m_LocalPosition: {x: 83.27, y: -1.68, z: -0.06536443}
   m_LocalScale: {x: 1.8030599, y: 0.92399997, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -5150,7 +5152,7 @@ Transform:
   m_GameObject: {fileID: 1711969593}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 84.89, y: -1.83, z: -0.06536443}
+  m_LocalPosition: {x: 70.49, y: -1.83, z: -0.06536443}
   m_LocalScale: {x: 0.8, y: 0.8, z: 0.8}
   m_ConstrainProportionsScale: 1
   m_Children: []

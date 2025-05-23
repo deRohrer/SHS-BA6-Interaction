@@ -194,6 +194,8 @@ public class CharacterStateMachine : MonoBehaviour
     public float stateTransitionDelay = 0.1f; // Delay for state transitions
     public LayerMask pickupLayer; // Layer for pickup objects
     private ICharacterState currentState;
+    public AudioClip pickup;
+    public AudioClip drop;
     private AudioSource audioSource;
 
     private void Start()
@@ -298,7 +300,7 @@ public class CharacterStateMachine : MonoBehaviour
         if (audioSource != null)
         {
             Debug.Log("Playing pickup sound");
-            audioSource.PlayOneShot(audioSource.clip);
+            audioSource.PlayOneShot(pickup);
         }
     }
 
@@ -344,6 +346,7 @@ public class CharacterStateMachine : MonoBehaviour
             }
             else
             {
+
                 if (objRb != null)
                 {
                     objRb.bodyType = RigidbodyType2D.Dynamic;
@@ -356,6 +359,13 @@ public class CharacterStateMachine : MonoBehaviour
                 }
 
                 heldObject.transform.SetParent(null);
+
+
+                if (audioSource != null)
+                {
+                    Debug.Log("Playing drop sound");
+                    audioSource.PlayOneShot(drop);
+                }
             }
 
             heldObject = null;
