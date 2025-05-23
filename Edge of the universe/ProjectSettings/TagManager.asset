@@ -46,5 +46,11 @@ TagManager:
   - name: PickUp
     uniqueID: 2575561345
     locked: 0
+  - name: Menu
+    uniqueID: 2313380615
+    locked: 0
+  - name: UI
+    uniqueID: 2912095053
+    locked: 0
   m_RenderingLayers:
   - Default

@@ -1,9 +1,46 @@
 using UnityEngine;
+using System.Collections;
+
 
 public class MenuPlanet : MonoBehaviour
 {
     public Planet destinationPlanet; // assign this in Inspector
+    private bool isPlanet3;
+    public TMPro.TextMeshProUGUI currentPromptText;
+    public GameObject playerMarkerPrefab; // Assign in Inspector
+    public Vector3 miniMillyposition;
+    private GameObject playerMarkerInstance;
+    private SpriteRenderer playerMarkerRenderer;
 
+    public void ShowPlayerMarker(bool show)
+    {
+        if (show)
+        {
+            if (playerMarkerInstance == null && playerMarkerPrefab != null)
+            {
+                playerMarkerInstance = Instantiate(playerMarkerPrefab, transform);
+                playerMarkerInstance.transform.localPosition = miniMillyposition; // adjust as needed
+                playerMarkerRenderer = playerMarkerInstance.GetComponent<SpriteRenderer>();
+
+                //playerMarkerInstance.transform.localScale = new Vector3(0.3f, 0.3f, 1f);
+            }
+            else if (playerMarkerInstance != null)
+            {
+                playerMarkerInstance.SetActive(true);
+            }
+        }
+        else if (playerMarkerInstance != null)
+        {
+            playerMarkerInstance.SetActive(false);
+        }
+    }
+    private void Start()
+    {
+
+        isPlanet3 = (gameObject.name == "Planet 3");
+
+
+    }
     public void SetVisible(bool visible)
     {
         SpriteRenderer sr = GetComponent<SpriteRenderer>();
@@ -11,6 +48,11 @@ public class MenuPlanet : MonoBehaviour
 
         if (sr != null) sr.enabled = visible;
         if (col != null) col.enabled = visible;
+        if (playerMarkerInstance != null)
+        {
+            playerMarkerRenderer = playerMarkerInstance.GetComponent<SpriteRenderer>();
+            playerMarkerInstance.SetActive(visible);
+        }
     }
     void OnMouseDown()
     {
@@ -26,33 +68,76 @@ public class MenuPlanet : MonoBehaviour
             return;
         }
 
-        GameObject menu = GameObject.FindWithTag("Menu");
-        if (menu != null)
+        if (isPlanet3)
         {
-            menu.GetComponent<Menu>().HideMenuWithFade();
+            // Show message instead of scaling
+            StartCoroutine(TypeText("Sorry! Planet not available yet"));
         }
-
-        // Move player and camera
-        GameObject player = GameObject.FindGameObjectWithTag("Player");
-        Camera mainCamera = Camera.main;
-
-        if (player != null && mainCamera != null)
+        else
         {
-            Transform targetCamera = destinationPlanet.destinationPointCamera;
-            Transform targetPlayer= destinationPlanet.destinationPointPlayer;
+            GameObject menu = GameObject.FindWithTag("Menu");
+            if (menu != null)
+            {
+                menu.GetComponent<Menu>().HideMenuWithFade();
+            }
+
+            // Move player and camera
+            GameObject player = GameObject.FindGameObjectWithTag("Player");
+            Camera mainCamera = Camera.main;
+
+            if (player != null && mainCamera != null)
+            {
+                Transform targetCamera = destinationPlanet.destinationPointCamera;
+                Transform targetPlayer = destinationPlanet.destinationPointPlayer;
 
 
-            player.transform.position = targetPlayer.position;
-            mainCamera.transform.position = new Vector3(
-                targetCamera.position.x,
-                targetCamera.position.y,
-                mainCamera.transform.position.z
-            );
+                player.transform.position = targetPlayer.position;
+                mainCamera.transform.position = new Vector3(
+                    targetCamera.position.x,
+                    targetCamera.position.y,
+                    mainCamera.transform.position.z
+                );
 
-            GameManager.Instance.SetCurrentPlanet(destinationPlanet);
+                GameManager.Instance.SetCurrentPlanet(destinationPlanet);
 
-            //GameManager.Instance.HideChildObjectsByParent("Menu");
+                //GameManager.Instance.HideChildObjectsByParent("Menu");
 
+            }
         }
     }
+
+    private IEnumerator TypeText(string message)
+    {
+
+
+        foreach (char letter in message.ToCharArray())
+        {
+            currentPromptText.text += letter;
+            yield return new WaitForSeconds(0.05f);
+        }
+        yield return new WaitForSeconds(3f);
+
+        // Wait before clearing
+        currentPromptText.text = "";
+
+
+    }
+
+    public void SetAlpha(float alpha)
+    {
+        SpriteRenderer sr = GetComponent<SpriteRenderer>();
+        if (sr != null)
+        {
+            Color c = sr.color;
+            sr.color = new Color(c.r, c.g, c.b, alpha);
+        }
+
+        if (playerMarkerInstance != null && playerMarkerRenderer != null)
+        {
+            Color c = playerMarkerRenderer.color;
+            playerMarkerRenderer.color = new Color(c.r, c.g, c.b, alpha);
+        }
+    }
+
+
 }

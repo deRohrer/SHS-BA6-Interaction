@@ -12,6 +12,9 @@ public class Menu : MonoBehaviour
     private bool isVisible = false;
 
     private List<MenuPlanet> menuPlanets;
+    private bool hasOpenedMenuOnce = false;
+
+   [SerializeField] private TMPro.TextMeshProUGUI currentPromptText;
 
     void Awake()
     {
@@ -27,6 +30,7 @@ public class Menu : MonoBehaviour
         {
             planet.SetVisible(false);  // Enable sprite and collider on each planet
         }
+
     }
 
     void Update()
@@ -56,8 +60,24 @@ public class Menu : MonoBehaviour
         {
             planet.SetVisible(true);  // Enable sprite and collider on each planet
         }
+        UpdatePlayerMarker(GameManager.Instance.currentPlanet);
+
+
+        if (!hasOpenedMenuOnce)
+        {
+
+            hasOpenedMenuOnce = true;
+            StartCoroutine(TypeText("Click on a planet to teleport"));
+        }
     }
 
+    public void UpdatePlayerMarker(Planet currentPlanet)
+    {
+        foreach (MenuPlanet planet in menuPlanets)
+        {
+            planet.ShowPlayerMarker(planet.destinationPlanet == currentPlanet);
+        }
+    }
     private void HideMenuInstantly()
     {
         isVisible = false;
@@ -98,5 +118,27 @@ public class Menu : MonoBehaviour
                 sr.color = new Color(c.r, c.g, c.b, alpha);
             }
         }
+
+        foreach (MenuPlanet planet in menuPlanets)
+        {
+            planet.SetAlpha(alpha); // <- Add this line
+        }
+    }
+
+    private IEnumerator TypeText(string message)
+    {
+     
+
+        foreach (char letter in message.ToCharArray())
+        {
+            currentPromptText.text += letter;
+            yield return new WaitForSeconds(0.05f);
+        }
+
+        // Wait before clearing
+        yield return new WaitUntil(() => Input.GetMouseButtonDown(0));
+        currentPromptText.text = "";
+
+      
     }
 }
