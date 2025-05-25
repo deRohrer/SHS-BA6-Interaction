@@ -6,6 +6,8 @@ public class MusicManager : MonoBehaviour
     public static MusicManager Instance { get; private set; }
 
     public float fadeDuration = 2f;
+    public float musicVolume = 0.1f;
+    public AudioClip first;
 
     private AudioSource activeSource;
     private AudioSource fadeSource;
@@ -29,9 +31,18 @@ public class MusicManager : MonoBehaviour
         // Create two AudioSources for crossfading
         activeSource = gameObject.AddComponent<AudioSource>();
         fadeSource = gameObject.AddComponent<AudioSource>();
+        fadeSource.Stop();
+        fadeSource.clip = null;
+        fadeSource.volume = 0f;
+
 
         activeSource.loop = true;
         fadeSource.loop = true;
+
+
+        Debug.Log($"ActiveSource playing: {activeSource.isPlaying}, Clip: {activeSource.clip?.name}");
+        Debug.Log($"FadeSource playing: {fadeSource.isPlaying}, Clip: {fadeSource.clip?.name}");
+
     }
 
     public void PlayMusic(AudioClip newClip)
@@ -63,14 +74,14 @@ public class MusicManager : MonoBehaviour
         while (time < fadeDuration)
         {
             float t = time / fadeDuration;
-            oldSource.volume = Mathf.Lerp(1f, 0f, t);
-            newSource.volume = Mathf.Lerp(0f, 1f, t);
+            oldSource.volume = Mathf.Lerp(musicVolume, 0f, t);
+            newSource.volume = Mathf.Lerp(0f, musicVolume, t);
             time += Time.deltaTime;
             yield return null;
         }
 
         oldSource.Stop();
-        oldSource.volume = 1f;
+        oldSource.volume = 0f;
 
         // Swap roles
         activeSource = newSource;

@@ -24,7 +24,6 @@ public class TextTrigger : MonoBehaviour
 
         if (other.CompareTag("Player"))
         {
-            Debug.Log("It's the player!");
             PromptManager.Instance.ShowPrompt(text);
             promptShown = true;
         }

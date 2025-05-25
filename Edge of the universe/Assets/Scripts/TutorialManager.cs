@@ -6,7 +6,6 @@ public class TutorialManager : MonoBehaviour
     private bool hasMovedRight = false;
     private bool hasJumped = false;
     private bool hasMovedLeft = false;
-    private bool hasPressedM = false;
 
     private bool startedTut = false;
 

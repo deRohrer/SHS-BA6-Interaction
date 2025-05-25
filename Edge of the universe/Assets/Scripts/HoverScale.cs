@@ -5,6 +5,7 @@ public class HoverScale : MonoBehaviour
     private Vector3 originalScale;
     public Vector3 hoverScale = new Vector3(0.6f, 0.6f, 1f); // scale when hovered
     private bool isPlanet3;
+    private Planet destinationPlanet;
 
 
     void Start()
@@ -16,7 +17,8 @@ public class HoverScale : MonoBehaviour
 
     void OnMouseEnter()
     {
-        if (!isPlanet3) { 
+        destinationPlanet = GetComponent<MenuPlanet>().destinationPlanet;       
+        if (!isPlanet3 && !GameManager.Instance.IsCurrentPlanet(destinationPlanet)) { 
             transform.localScale = hoverScale;
         }
     }

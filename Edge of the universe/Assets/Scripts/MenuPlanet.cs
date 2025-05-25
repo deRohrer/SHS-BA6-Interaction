@@ -11,6 +11,7 @@ public class MenuPlanet : MonoBehaviour
     public Vector3 miniMillyposition;
     private GameObject playerMarkerInstance;
     private SpriteRenderer playerMarkerRenderer;
+    private bool isTyping=false;
 
 
     public void ShowPlayerMarker(bool show)
@@ -71,14 +72,20 @@ public class MenuPlanet : MonoBehaviour
 
         if (isPlanet3)
         {
-            // Show message instead of scaling
-            StartCoroutine(TypeText("Sorry! Planet not available yet"));
+            if (!isTyping)
+            {
+                // Show message instead of scaling
+                StartCoroutine(TypeText("Sorry! Planet not available yet"));
+            }
+            else return;
+           
         }
         else
         {
             GameObject menu = GameObject.FindWithTag("Menu");
             if (menu != null)
             {
+                Wait();
                 menu.GetComponent<Menu>().HideMenuWithFade();
             }
 
@@ -113,7 +120,8 @@ public class MenuPlanet : MonoBehaviour
 
     private IEnumerator TypeText(string message)
     {
-
+        currentPromptText.text = "";
+        isTyping = true;
 
         foreach (char letter in message.ToCharArray())
         {
@@ -124,7 +132,7 @@ public class MenuPlanet : MonoBehaviour
 
         // Wait before clearing
         currentPromptText.text = "";
-
+        isTyping = false;
 
     }
 
@@ -144,5 +152,8 @@ public class MenuPlanet : MonoBehaviour
         }
     }
 
-
+    private IEnumerator Wait()
+    {
+        yield return new WaitForSeconds(3f);
+    }
 }

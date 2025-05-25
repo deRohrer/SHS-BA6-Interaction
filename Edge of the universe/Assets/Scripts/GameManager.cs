@@ -49,6 +49,8 @@ public class GameManager : MonoBehaviour
             Instance = this;
             DontDestroyOnLoad(gameObject); // Optional if you want it to persist between scenes
         }
+
+
     }
 
     public void SetCurrentPlanet(Planet newPlanet)
@@ -63,6 +65,8 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
+        MusicManager.Instance.PlayMusic(currentPlanet.planetMusic);
+
         StartCoroutine(PlayIntroSequence());
     }
 

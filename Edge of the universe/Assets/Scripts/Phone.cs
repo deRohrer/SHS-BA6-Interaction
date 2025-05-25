@@ -14,12 +14,6 @@ public class Phone : DestinationTarget
         Debug.Log("Phone will be changed after delay");
 
         StartCoroutine(ChangePhoneAfterDelay(item));
-
-        if (item.itemType == acceptedType)
-        {
-            // Trigger reward after the sprite change (or move this before if you prefer)
-            StartCoroutine(RewardPlayer());
-        }
     }
 
     private IEnumerator ChangePhoneAfterDelay(HoldableItem item)
@@ -29,6 +23,9 @@ public class Phone : DestinationTarget
 
         phoneSpriteRenderer.sprite = happyPhoneSprite; // Change sprite
         Debug.Log("Phone changed");
+        ShowPrompt("Thank you! Now I can hear again. I feel whole");
+        yield return new WaitForSeconds(3f);
+        StartCoroutine(RewardPlayer());
 
     }
 
