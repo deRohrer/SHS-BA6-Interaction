@@ -60,6 +60,12 @@ The following shows a list of missions not implemented so far.
 * A little parkour level with jumps and in which you find out you can crouch. On an otherwise inaccessible platform you find a piece.
 
 
-# Installation
-Build instructions
+# Installation (Windows)
+To clone this repository, open the desired folder location via a terminal and enter 
+
+*git clone https://github.com/deRohrer/SHS-BA6-Interaction.git*
+
+Once loaded, search for the file *Edge of the universe.exe* inside the Build/Windows folder. Open to start the game.
+
+Have fun!
 
