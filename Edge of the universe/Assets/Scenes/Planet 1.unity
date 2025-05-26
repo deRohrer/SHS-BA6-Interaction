@@ -1339,8 +1339,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   tutorial: {fileID: 462497888}
   story: {fileID: 1321373145}
-  StartTutorial: 0
-  StartStory: 0
+  StartTutorial: 1
+  StartStory: 1
   currentPlanet: {fileID: 654728759}
 --- !u!4 &294585265
 Transform:

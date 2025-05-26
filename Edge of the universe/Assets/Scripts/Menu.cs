@@ -56,6 +56,8 @@ public class Menu : MonoBehaviour
         isVisible = true;
         SetAlpha(1f);
 
+      
+
         foreach (MenuPlanet planet in menuPlanets)
         {
             planet.SetVisible(true);  // Enable sprite and collider on each planet
@@ -83,17 +85,19 @@ public class Menu : MonoBehaviour
     {
         isVisible = false;
         SetAlpha(0f);
+      
         foreach (MenuPlanet planet in menuPlanets)
         {
             planet.SetVisible(false);  // Enable sprite and collider on each planet
         }
+
     }
 
     private IEnumerator FadeOutMenu()
     {
         isVisible = false;
         float elapsed = 0f;
-
+        Color originalTextColor = currentPromptText.color;
         while (elapsed < fadeDuration)
         {
             float alpha = Mathf.Lerp(1f, 0f, elapsed / fadeDuration);
@@ -111,6 +115,10 @@ public class Menu : MonoBehaviour
 
     private void SetAlpha(float alpha)
     {
+        Color originalTextColor = currentPromptText.color;
+        currentPromptText.color = new Color(originalTextColor.r, originalTextColor.g, originalTextColor.b, alpha);
+        currentPromptText.ForceMeshUpdate();
+
         foreach (var sr in spriteRenderers)
         {
             if (sr != null)

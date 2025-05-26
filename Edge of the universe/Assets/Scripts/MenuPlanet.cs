@@ -21,7 +21,7 @@ public class MenuPlanet : MonoBehaviour
             if (playerMarkerInstance == null && playerMarkerPrefab != null)
             {
                 playerMarkerInstance = Instantiate(playerMarkerPrefab, transform);
-                playerMarkerInstance.transform.localPosition = miniMillyposition; // adjust as needed
+                playerMarkerInstance.transform.localPosition = miniMillyposition; 
                 playerMarkerRenderer = playerMarkerInstance.GetComponent<SpriteRenderer>();
 
                 //playerMarkerInstance.transform.localScale = new Vector3(0.3f, 0.3f, 1f);
@@ -82,39 +82,8 @@ public class MenuPlanet : MonoBehaviour
         }
         else
         {
-            GameObject menu = GameObject.FindWithTag("Menu");
-            if (menu != null)
-            {
-                Wait();
-                menu.GetComponent<Menu>().HideMenuWithFade();
-            }
 
-            // Move player and camera
-            GameObject player = GameObject.FindGameObjectWithTag("Player");
-            Camera mainCamera = Camera.main;
-
-            if (player != null && mainCamera != null)
-            {
-                Transform targetCamera = destinationPlanet.destinationPointCamera;
-                Transform targetPlayer = destinationPlanet.destinationPointPlayer;
-
-
-                player.transform.position = targetPlayer.position;
-                mainCamera.transform.position = new Vector3(
-                    targetCamera.position.x,
-                    targetCamera.position.y,
-                    mainCamera.transform.position.z
-                );
-
-                GameManager.Instance.SetCurrentPlanet(destinationPlanet);
-                Debug.Log("Playing planet music");
-
-                MusicManager.Instance.PlayMusic(destinationPlanet.planetMusic);
-
-
-                //GameManager.Instance.HideChildObjectsByParent("Menu");
-
-            }
+            StartCoroutine(HandlePlanetClick());
         }
     }
 
@@ -152,8 +121,73 @@ public class MenuPlanet : MonoBehaviour
         }
     }
 
-    private IEnumerator Wait()
+   
+    private IEnumerator HandlePlanetClick()
     {
-        yield return new WaitForSeconds(3f);
+        /*
+        MenuPlanet activeMarkerOwner = null;
+        Animator activeAnimator = null;
+
+        MenuPlanet[] allPlanets = Object.FindObjectsByType<MenuPlanet>(FindObjectsSortMode.None);
+
+        foreach (var planet in allPlanets)
+        {
+            if (planet.playerMarkerInstance != null)
+            {
+                activeMarkerOwner = planet;
+                activeAnimator = planet.playerMarkerInstance.GetComponent<Animator>();
+                Debug.Log("Found playerMarker");
+                break;
+            }
+        }
+        */
+        float waitTime = 0.5f; // fallback in case no animator is found
+
+       /*
+        if (activeAnimator != null)
+        {
+            activeAnimator.SetTrigger("Click");
+
+            // Wait for the animation to finish based on clip length
+            yield return null;  // wait for next frame
+
+            AnimatorClipInfo[] clipInfos = activeAnimator.GetCurrentAnimatorClipInfo(0);
+            if (clipInfos.Length > 0)
+            {
+                waitTime = clipInfos[0].clip.length;
+                Debug.Log($"Waiting for {waitTime} seconds for animation to finish.");
+            }
+        }
+        */
+        yield return new WaitForSeconds(waitTime);
+
+        GameObject menu = GameObject.FindWithTag("Menu");
+        if (menu != null)
+        {
+            menu.GetComponent<Menu>().HideMenuWithFade();
+        }
+
+        // Move player and camera
+        GameObject player = GameObject.FindGameObjectWithTag("Player");
+        Camera mainCamera = Camera.main;
+
+        if (player != null && mainCamera != null)
+        {
+            Transform targetCamera = destinationPlanet.destinationPointCamera;
+            Transform targetPlayer = destinationPlanet.destinationPointPlayer;
+
+            player.transform.position = targetPlayer.position;
+            mainCamera.transform.position = new Vector3(
+                targetCamera.position.x,
+                targetCamera.position.y,
+                mainCamera.transform.position.z
+            );
+
+            GameManager.Instance.SetCurrentPlanet(destinationPlanet);
+            MusicManager.Instance.PlayMusic(destinationPlanet.planetMusic);
+
+        }
     }
+
+
 }

@@ -1,6 +1,5 @@
 using UnityEngine;
 using System.Collections;
-using UnityEditor.Experimental.GraphView;
 
 public class Phone : DestinationTarget
 {
@@ -23,7 +22,7 @@ public class Phone : DestinationTarget
 
         phoneSpriteRenderer.sprite = happyPhoneSprite; // Change sprite
         Debug.Log("Phone changed");
-        ShowPrompt("Thank you! Now I can hear again. I feel whole");
+        ShowPrompt("Thank you! Now I can hear again. I feel whole!");
         yield return new WaitForSeconds(3f);
         StartCoroutine(RewardPlayer());
 
