@@ -15,7 +15,9 @@ A first inpiration for what the story should look like was obtained from pulling
 
 ## 2. Storyboard
 Based on these notions, but allowing ourselfs to add others and ignore some we came up with a storyboard.
+
 ![WhatsApp Image 2025-03-16 at 21 42 00_1486d619](https://github.com/user-attachments/assets/8b16cf3d-65a6-47e1-9e1a-5680ad8aa547)
+
 Our game would follow an alien that got sucked in by a black hole and shot out onto a distant planet at the edge of the universe. To get home it has to explore the planet and travel to neighbouring worlds and find the parts of its spaceship that broke in the black hole. You do this by interacting with the inhabitants and environment of the planets. At the risk of creating some chaos, getting lost or making friends.
 
 ## 3. Paper Prototype
@@ -58,6 +60,12 @@ The following shows a list of missions not implemented so far.
 * A little parkour level with jumps and in which you find out you can crouch. On an otherwise inaccessible platform you find a piece.
 
 
-# Installation
-Build instructions
+# Installation (Windows)
+To clone this repository, open the desired folder location via a terminal and enter 
+
+*git clone https://github.com/deRohrer/SHS-BA6-Interaction.git*
+
+Once loaded, search for the file *Edge of the universe.exe* inside the Build/Windows folder. Open to start the game.
+
+Have fun!
 
