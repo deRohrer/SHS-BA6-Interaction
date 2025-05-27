@@ -67,5 +67,14 @@ To clone this repository, open the desired folder location via a terminal and en
 
 Once loaded, search for the file *Edge of the universe.exe* inside the Build/Windows folder. Open to start the game.
 
-Have fun!
+# Play Online
+
+Simply follow the following link:
+
+https://derohrer.github.io/SHS-BA6-Interaction/
+
+
+
+
+## Have fun!
 
